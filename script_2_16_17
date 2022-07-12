@@ -19,3 +19,14 @@
 // 1. Выполняем изменения в коде
 // 2. Выполняем git commit -a -m 
 // 3. Выполняем git push
+// если были изменения на удаленном и локальном репозитории
+// 1. git fetch
+// 2. git merge: при данной команде запросит ввести сообщение 
+// press "i" (i for insert)
+// write your merge message
+// press "esc" (escape)
+// write ":wq" (write & quit)
+// then press enter
+// 3. git add
+// 4. git commit
+// 5. git push
