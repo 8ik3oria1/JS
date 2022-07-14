@@ -31,6 +31,6 @@ answers[2] = prompt("How old are you?", "");
 console.log(typeof(answers)); //в данному случае это объект
 // console.log(typeof(null)); //получаем объект - это ошибка(особенность)
 
-//alert, confirm. prompt можно тестировать ТОЛЬКО в браузере, VSCode такого не знает и будет отдавать ошибку 'ReferenceError: prompt is not defined'
+//alert, confirm, prompt можно тестировать ТОЛЬКО в браузере, VSCode такого не знает и будет отдавать ошибку 'ReferenceError: prompt is not defined'
 
 
