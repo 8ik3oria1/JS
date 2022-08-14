@@ -23,27 +23,27 @@
 
 //мое решение
 
-'use strict';
+// 'use strict';
 
-const numberOfFilms = prompt('Сколько фильмов вы уже посмотрели?');
-console.log(numberOfFilms);
+// const numberOfFilms = prompt('Сколько фильмов вы уже посмотрели?');
+// console.log(numberOfFilms);
 
-const personalMovieDB = {
-    count: numberOfFilms,
-    movies: {},
-    actors: {},
-    genres: [],
-    privat: false
-};
-console.log(personalMovieDB);
+// const personalMovieDB = {
+//     count: numberOfFilms,
+//     movies: {},
+//     actors: {},
+//     genres: [],
+//     privat: false
+// };
+// console.log(personalMovieDB);
 
-const answers = [];
-answers[0] = prompt('Один из последних просмотренных фильмов?', "");
-answers[1] = prompt('На сколько оцените его?', "");
-console.log(answers);
+// const answers = [];
+// answers[0] = prompt('Один из последних просмотренных фильмов?', "");
+// answers[1] = prompt('На сколько оцените его?', "");
+// console.log(answers);
 
-personalMovieDB.movies[answers[0]] = answers[1]; //сделать так чтобы ответ на первый вопрос был ключем, а ответ на второй вопрос был значением
-console.log(personalMovieDB);
+// personalMovieDB.movies[answers[0]] = answers[1]; //сделать так чтобы ответ на первый вопрос был ключем, а ответ на второй вопрос был значением
+// console.log(personalMovieDB);
 
 
 //решение из урока
