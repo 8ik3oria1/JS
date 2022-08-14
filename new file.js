@@ -52,6 +52,7 @@ console.log(personalMovieDB);
 //     }
 // };
 
+//второй вариант задания 3
 while (personalMovieDB.count) {
         (personalMovieDB.count < 10)? alert('Просмотрено довольно мало фильмов'): 
         (personalMovieDB.count >= 10 && personalMovieDB.count <= 30) ? alert('Вы классический зритель'):
