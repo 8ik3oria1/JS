@@ -75,7 +75,14 @@ function showMyDB () {
     }
 }
 
-showMyDB();
+//решение преподователя
+// function showMyDB (hidden) {
+//     if (!hidden) {
+//         console.log(personalMovieDB);
+//     }
+// }
+
+showMyDB(personalMovieDB.privat);
 
 const orderNumber = 1;
 
