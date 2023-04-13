@@ -68,3 +68,17 @@ circles[0].remove();
 
 //замена элемента другим элементом
 hearts[0].replaceWith(circles[1]);
+
+//добавление текста/html объекта
+
+//вписать текст в объект
+//div.innerHTML = "Hello World"; //текст
+//div.innerHTML = "<h1>Hello World</h1>"; //html
+
+//div.textContent = "Hello"; //only text!
+
+//вставка HTML
+div.innerHTML = "<h1>Hello World</h1>";
+div.insertAdjacentHTML('beforebegin', '<h2>Hello</h2>');
+
+
