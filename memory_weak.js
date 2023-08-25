@@ -64,3 +64,5 @@ function deleteElement() {
 }
 
 deleteElement();
+
+//https://html-plus.in.ua/kak-izbezhat-utechek-pamyati-v-javascript/
