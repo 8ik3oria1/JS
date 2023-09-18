@@ -118,8 +118,7 @@ window.addEventListener('DOMContentLoaded', ( )=> {
     //модальное окно
 
     const modalTrigger = document.querySelectorAll('[data-modal]'), //обращение к нужным атрибутам
-        modal = document.querySelector('.modal'), //отвечает за само модальное окно
-        modalCloseBtn = document.querySelector('[data-close]');
+        modal = document.querySelector('.modal'); //отвечает за само модальное окно
 
     function openModal() {
         modal.classList.add('show');
@@ -140,11 +139,9 @@ window.addEventListener('DOMContentLoaded', ( )=> {
         document.body.style.overflow = '';//восстановить скролл после закрытия модального окна
     }
 
-    modalCloseBtn.addEventListener('click', closeModal);
-
     //сделать так чтобы модалка закрывалась по нажатию esc или н область вне окна
     modal.addEventListener('click', (e) =>{
-        if(e.target === modal){
+        if(e.target === modal || e.target.getAttribute('data-close') == ''){
             closeModal();
         }
     });
@@ -156,7 +153,7 @@ window.addEventListener('DOMContentLoaded', ( )=> {
     });//закрыть окно по клавише эскейп
 
 
-    const modalTimerId = setTimeout(openModal, 3000);
+    const modalTimerId = setTimeout(openModal, 50000);
 
     function showModalByScrool() {
         if(window.pageYOffset + document.documentElement.clientHeight >= document.documentElement.scrollHeight - 1){
@@ -251,7 +248,7 @@ window.addEventListener('DOMContentLoaded', ( )=> {
     const forms = document.querySelectorAll('form');
 
     const message = {//список фраз что будут показываться юезру после сабмита
-        loading: 'Загрузка',
+        loading: 'img/form/spinner.svg',
         success:'спасибо, скоро мы свяжемся с вами!',
         failure: 'что-то пошло не так'
     };
@@ -264,28 +261,79 @@ window.addEventListener('DOMContentLoaded', ( )=> {
         form.addEventListener('submit', (e) => {
             e.preventDefault();//убрать стандартное поведение браузера на событие сабмит
 
-            const statusMessage = document.createElement('div');
-            statusMessage.classList.add('status');
-            statusMessage.textContent = message.loading;
-            form.append(statusMessage);
+            const statusMessage = document.createElement('img');
+            //statusMessage.classList.add('status');
+            statusMessage.src = message.loading;//создаем изображение и подставили сразу атрибут src
+            statusMessage.style.cssText = `
+                display: block;
+                margin: 0 auto;
+            `; //добавляем стили 
+            //statusMessage.textContent = message.loading;
+            //form.append(statusMessage);
+            form.insertAdjacentElement('afterend', statusMessage);//чтобы при разных модалках/формах спинер ничего не двигал
+            //и отображался красиво
 
             const request = new XMLHttpRequest();
             request.open('POST', 'server.php');
 
-            request.setRequestHeader('Content-Type', 'multipart/form-data');
+            request.setRequestHeader('Content-Type', 'application/json');
 
             const formData = new FormData(form);
-            request.send(formData);
+
+            const object = {};
+            formData.forEach(function(value, key){
+                object[key] = value;
+            });
+
+            const json = JSON.stringify(object);
+
+            request.send(json);
 
             request.addEventListener('load', () =>{
                 if(request.status === 200){
                     console.log(request.response);
-                    statusMessage.textContent = message.success;
+                    //statusMessage.textContent = message.success;
+                    showThanksModal(message.success);
+                    statusMessage.remove();
+                    form.reset();//очистить форму после заполнения
+                    // setTimeout(() =>{
+                    //     statusMessage.remove();//удалить сообщение со странице о статусе
+                    // }, 2000);
                 } else {
-                    statusMessage.textContent = message.failure;
+                    showThanksModal(message.failure);
+                    //statusMessage.textContent = message.failure;
                 }
-            })
-        })
+            });
+        });
+    }
+
+
+    function showThanksModal(message) {
+        const previousModalDialog = document.querySelector('.modal__dialog');
+
+        previousModalDialog.classList.add('hide'); //скрываем форму заполнения
+        //prevModalDialog.classList.add('hide');
+        openModal();
+
+        const thanksModal = document.createElement('div');
+        thanksModal.classList.add('modal__dialog');//добавляем диву классу
+        //формируем верстку в этом новом окне 
+        thanksModal.innerHTML = `
+            <div class="modal__content">
+            <div class="modal__close" data-close>×</div>
+            <div class="modal__title">${message}</div>
+            </div>
+        `;
+
+        document.querySelector('.modal').append(thanksModal);
+        //далее мы должны сделать возмодность чтобы юзер мог еще раз заполнить форму
+        setTimeout(() => {
+            thanksModal.remove();
+            previousModalDialog.classList.add('show');
+            previousModalDialog.classList.remove('hide');
+            closeModal();
+        }, 4000);
+
     }
 });
 
