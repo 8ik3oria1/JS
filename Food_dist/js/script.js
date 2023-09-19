@@ -273,10 +273,7 @@ window.addEventListener('DOMContentLoaded', ( )=> {
             form.insertAdjacentElement('afterend', statusMessage);//чтобы при разных модалках/формах спинер ничего не двигал
             //и отображался красиво
 
-            const request = new XMLHttpRequest();
-            request.open('POST', 'server.php');
-
-            request.setRequestHeader('Content-Type', 'application/json');
+            //request.setRequestHeader('Content-Type', 'application/json');
 
             const formData = new FormData(form);
 
@@ -285,27 +282,47 @@ window.addEventListener('DOMContentLoaded', ( )=> {
                 object[key] = value;
             });
 
-            const json = JSON.stringify(object);
-
-            request.send(json);
-
-            request.addEventListener('load', () =>{
-                if(request.status === 200){
-                    console.log(request.response);
+            // const request = new XMLHttpRequest();
+            // request.open('POST', 'server.php');
+            //заменяем на фетч
+            fetch('server.php', {
+                method: "POST",
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(object)
+            }).then(data => data.text())
+            .then(data => {
+                console.log(data);
                     //statusMessage.textContent = message.success;
                     showThanksModal(message.success);
                     statusMessage.remove();
-                    form.reset();//очистить форму после заполнения
-                    // setTimeout(() =>{
-                    //     statusMessage.remove();//удалить сообщение со странице о статусе
-                    // }, 2000);
-                } else {
-                    showThanksModal(message.failure);
-                    //statusMessage.textContent = message.failure;
-                }
+            }).catch(() => {
+                showThanksModal(message.failure);
+            }).finally(() => {
+                form.reset();//очистить форму после заполнения
             });
         });
     }
+            //request.send(json);
+
+        //     request.addEventListener('load', () =>{
+        //         if(request.status === 200){
+        //             console.log(request.response);
+        //             //statusMessage.textContent = message.success;
+        //             showThanksModal(message.success);
+        //             statusMessage.remove();
+        //             form.reset();//очистить форму после заполнения
+        //             // setTimeout(() =>{
+        //             //     statusMessage.remove();//удалить сообщение со странице о статусе
+        //             // }, 2000);
+        //         } else {
+        //             showThanksModal(message.failure);
+        //             //statusMessage.textContent = message.failure;
+        //         }
+        //     });
+        // });
+    //}
 
 
     function showThanksModal(message) {
@@ -337,8 +354,5 @@ window.addEventListener('DOMContentLoaded', ( )=> {
     }
 });
 
+
 //https://attacomsian.com/blog/javascript-object-property-shorthand
-
-
-
-
