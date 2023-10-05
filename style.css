@@ -1,34 +1,17 @@
-.box {
-  position: absolute;
-  width: 100px;
-  height: 100px;
-  background-color: blue;
+* {
+    box-sizing: border-box;
 }
 .wrapper {
-  position: relative;
-  width: 400px;
-  height: 400px;
-  border: 3px solid red;
+    width: 400px;
+    margin: 40px auto 0 auto;
+    border: 1px solid rgba(0,0,0, .2);
+    padding: 20px;
 }
-.btn-block {
-	padding: 10px;
-	background-color: grey;
-	margin-top: 10px;
-}
+
 button {
-  margin-bottom: 10px;
-  margin-top: 10px;
-  width: 100px;
-  height: 40px;
-  background-color: yellow;
-  border: none;
-  transition: 0.3s all;
+    margin-top: 20px;
 }
 
-.blue {
-    background-color: blue;
-}
-
-.red {
-    background-color: red;
+[type=checkbox] {
+    margin-top: 20px;
 }
