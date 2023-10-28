@@ -1,5 +1,8 @@
 //const { off } = require("process");
 
+var Promise = require('es6-promise-polyfill').Promise;
+import 'nodelist-foreach-polyfill';
+
 import tabs from './modules/tabs';
 import modalWindow, { openModal } from './modules/modalWindow';
 import calculator from './modules/calculator';
